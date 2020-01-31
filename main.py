@@ -3,7 +3,6 @@ import pdb
 x = 0
 t = 0
 pos = []
-time = []
 
 
 def main():
@@ -31,7 +30,7 @@ def parse(line, mode):
             x_old = x
             x = float(line[1].split('X')[1])  # x becomes what it is
             # print('x is %f' % x)
-            t += abs((x_old - x) // ((float(line[2].split('F')[1])) / 60000))
+            t += abs((x_old - x) / ((float(line[2].split('F')[1])) / 60000))
         if line[0] == 'G4':
             t += float(line[1].split('P')[1])
             # print('t = %f' % t)
@@ -39,7 +38,7 @@ def parse(line, mode):
         if line[0] == 'G1':
             x += float(line[1].split('X')[1])  # add to x
             # print('x is %f' % x)
-            t += abs(float(line[1].split('X')[1]) // (float(line[2].split('F')[1]) / 60000))
+            t += abs(float(line[1].split('X')[1]) / (float(line[2].split('F')[1]) / 60000))
         if line[0] == 'G4':
             t += float(line[1].split('P')[1])
             # print('t = %f' % t)
