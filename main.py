@@ -8,7 +8,7 @@ pos = []
 def main():
     text_array = []
     mode = True
-    f = open('sample_gcode.txt', 'r')
+    f = open('calibration_part (1).gcode', 'r')
     for line in f:
         text_array.append(line.split())
     for i in range(len(text_array)):
@@ -30,15 +30,19 @@ def parse(line, mode):
             x_old = x
             x = float(line[1].split('X')[1])  # x becomes what it is
             # print('x is %f' % x)
-            t += abs((x_old - x) / ((float(line[2].split('F')[1])) / 60000))
-        if line[0] == 'G4':
+            f = 50*60
+            t += abs((x_old - x) / (f / 60000))
+        elif line[0] == 'G4':
             t += float(line[1].split('P')[1])
             # print('t = %f' % t)
+        else:
+            quit(parse())  # HOW DO I GET IT TO IGNORE OTHER LINES?
     else:
         if line[0] == 'G1':
             x += float(line[1].split('X')[1])  # add to x
             # print('x is %f' % x)
-            t += abs(float(line[1].split('X')[1]) / (float(line[2].split('F')[1]) / 60000))
+            f = float(line[2].split('F')[1])
+            t += abs(float(line[1].split('X')[1]) / (f / 60000))
         if line[0] == 'G4':
             t += float(line[1].split('P')[1])
             # print('t = %f' % t)
