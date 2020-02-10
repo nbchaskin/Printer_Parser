@@ -36,7 +36,7 @@ def parse(line, mode):
             t += float(line[1].split('P')[1])
             # print('t = %f' % t)
         else:
-            quit(parse())  # HOW DO I GET IT TO IGNORE OTHER LINES?
+            return  # HOW DO I GET IT TO IGNORE OTHER LINES?
     else:
         if line[0] == 'G1':
             x += float(line[1].split('X')[1])  # add to x
